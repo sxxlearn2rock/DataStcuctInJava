@@ -48,8 +48,37 @@ public class MyArrayList<T> {
 		theSize++;
 	}
 	
+	public T get(int index){
+		return storage[index];
+	}
+	
 	public T getLast(){
 		return storage[size()-1];
+	}
+	
+	public T removeLast(){
+		if (theSize <= 0) {
+			return null;
+		}
+		
+		T ret = storage[size()-1];
+		theSize--;
+		return ret;
+	}
+	
+	public T remove(int index){
+		if (index >= theSize) {
+			return null;
+		}
+		
+		T ret = storage[index];
+		
+		for ( int i = index; i <= size()-2; i++){
+			storage[i] = storage[i+1];
+		}
+		
+		theSize--;
+		return ret;
 	}
 	
 	public void expand(int newCapacity){

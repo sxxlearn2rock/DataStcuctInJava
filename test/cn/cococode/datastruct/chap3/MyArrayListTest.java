@@ -93,5 +93,55 @@ public class MyArrayListTest {
 			assertEquals(item, myArrayList.getLast());
 		}
 	}
+	
+	@Test
+	public void testGet(){
+		fullMyArrayList();
+		
+		for (int i = 0; i < testSize; ++i){
+			assertEquals(i, (int)myArrayList.get(i));
+		}
+	}
 
+	@Test
+	public void testRemoveLast(){
+		assertEquals(null, myArrayList.removeLast());
+		
+		fullMyArrayList();
+		
+		for(int i = testSize-1; i > 0 ; i--){
+			assertEquals(i, myArrayList.getLast().intValue());
+			assertEquals(i, myArrayList.removeLast().intValue());
+			assertEquals(i-1, myArrayList.getLast().intValue());
+		}
+	}
+
+	@Test
+	public void testRemove(){
+		assertEquals(null, myArrayList.remove(rand.nextInt(testBound)));	
+	
+		for (int i = 0; i < 100; i++){
+			myArrayList.clear();
+			fullMyArrayList();
+			final int size = myArrayList.size();
+			int index = rand.nextInt(2 * size) + 1;
+			Integer result = myArrayList.remove(index);
+			if ( index >= size ) {
+				assertEquals(null, result);
+			}else if (index < size -1){
+				assertEquals(index, result.intValue());
+				assertEquals(index+1, myArrayList.get(index).intValue());
+				assertEquals(index-1, myArrayList.get(index-1).intValue());
+			}else{ //index = size -1
+				assertEquals(index, result.intValue());
+				assertEquals(index-1, myArrayList.get(index-1).intValue());
+			} 
+		}
+	}
+	
+	private void fullMyArrayList(){
+		for (int i = 0; i < testSize; ++i){
+			myArrayList.add(i);
+		}
+	}
 }
