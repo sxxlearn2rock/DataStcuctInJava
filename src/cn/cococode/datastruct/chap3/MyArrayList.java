@@ -1,6 +1,11 @@
 package cn.cococode.datastruct.chap3;
 
-public class MyArrayList<T> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+import org.omg.CORBA.Current;
+
+public class MyArrayList<T> implements Iterable<T> {
 	private static final int DEFAULT_CAPACITY = 16;
 	private int theSize = 0;
 	private T[] storage;
@@ -108,5 +113,28 @@ public class MyArrayList<T> {
 		sbBuilder.deleteCharAt(sbBuilder.toString().lastIndexOf(","));
 		sbBuilder.append("]");
 		return sbBuilder.toString();
+	}
+
+	@Override
+	public Iterator<T> iterator() {
+		return new MyArrayListIterator();
+	}
+	
+	private class MyArrayListIterator implements Iterator<T>{
+		private int current = 0;
+		
+		@Override
+		public boolean hasNext() {
+			return current < size();
+		}
+
+		@Override
+		public T next() {
+			if (! hasNext()) {
+				throw new NoSuchElementException();
+			}
+			return storage[current++];
+		}
+		
 	}
 }

@@ -139,6 +139,18 @@ public class MyArrayListTest {
 		}
 	}
 	
+	
+	@Test
+	public void testForeach(){
+		fullMyArrayList();
+		
+		int i = 0;
+		for (Integer integer : myArrayList) {
+			assertEquals(i++, integer.intValue());
+		}
+		assertEquals(i, myArrayList.size());
+	}
+	
 	private void fullMyArrayList(){
 		for (int i = 0; i < testSize; ++i){
 			myArrayList.add(i);
